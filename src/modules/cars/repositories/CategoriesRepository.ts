@@ -26,7 +26,7 @@ class CategoriesRepository implements ICategoryRepository {
   list(): Category[] {
     return this.categories;
   }
-  finByName(name: string): Category {
+  findByName(name: string): Category {
     const category = this.categories.find((category) => category.name === name);
     return category;
   }
