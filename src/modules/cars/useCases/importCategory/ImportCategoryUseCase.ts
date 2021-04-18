@@ -1,4 +1,3 @@
-import parse from 'csv-parse';
 import csvParse from 'csv-parse';
 import fs from 'fs';
 
@@ -27,6 +26,7 @@ class ImportCategoryUseCase {
           });
         })
         .on('end', () => {
+          fs.promises.unlink(file.path);
           resolve(categories);
         })
         .on('error', (err) => {
