@@ -19,7 +19,9 @@ class ImportCategoryUseCase {
     return new Promise((resolve, reject) => {
       const stream = fs.createReadStream(file.path);
       const categories: IImportCategory[] = [];
-      const parseFile = csvParse();
+      const parseFile = csvParse({
+        delimiter: ',',
+      });
       stream.pipe(parseFile);
 
       parseFile
@@ -46,7 +48,7 @@ class ImportCategoryUseCase {
     categories.map(async (category) => {
       const { name, description } = category;
 
-      const existCategory = this.categoriesRepository.findByName(name);
+      const existCategory = await this.categoriesRepository.findByName(name);
 
       if (!existCategory) {
         await this.categoriesRepository.create({
